@@ -10,7 +10,7 @@ protocol NewsBusinessLogic {
 }
 
 protocol NewsDataStore {
-    var articles: [Article] { get }
+    var articles: [NewsModel.Article] { get }
 }
 
 protocol NewsPresentationLogic {

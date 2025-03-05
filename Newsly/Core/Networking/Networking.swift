@@ -20,36 +20,18 @@ enum Networking {
     }
 }
 
-final class BaseURLWorker: NetworkingLogic {
-    enum BaseURLError: LocalizedError {
-        case invalidRequest
-        case invalidResponse
-        case badRequest
-        case unauthorized
-        case notFound
-        case serverError
-        case someError(statusCode: Int)
-        
-        var description: String {
-            switch self {
-            case .invalidRequest:
-                return "Invalid request"
-            case .invalidResponse:
-                return "Invalid responce"
-            case .badRequest:
-                return "Invalid request"
-            case .unauthorized:
-                return "Unauthorized"
-            case .notFound:
-                return "Not found"
-            case .serverError:
-                return "Server error"
-            case .someError(let statusCode):
-                return "Error code: \(statusCode)"
-            }
+enum BaseURLError: LocalizedError {
+    case invalidRequest
+    
+    var description: String {
+        switch self {
+        case .invalidRequest:
+            return "Invalid request"
         }
     }
-    
+}
+
+final class BaseURLWorker: NetworkingLogic {
     var baseURL: String
     
     init(baseURL: String) {
@@ -68,23 +50,8 @@ final class BaseURLWorker: NetworkingLogic {
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(BaseURLError.invalidResponse))
-                return
-            }
-            
-            switch httpResponse.statusCode {
-            case 200...299:
-                completion(.success(Networking.ServerResponse(data: data, response: response)))
-            case 400:
-                completion(.failure(BaseURLError.badRequest))
-            case 404:
-                completion(.failure(BaseURLError.notFound))
-            case 500...599:
-                completion(.failure(BaseURLError.serverError))
-            default:
-                completion(.failure(BaseURLError.someError(statusCode: httpResponse.statusCode)))
-            }
+            completion(.success(Networking.ServerResponse(data: data, response: response)))
+
         }.resume()
     }
     

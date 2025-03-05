@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsResponceDTO: Decodable {
+struct NewsResponseDTO: Decodable {
     let news: [ArticleDTO]
     let requestID: String
 }

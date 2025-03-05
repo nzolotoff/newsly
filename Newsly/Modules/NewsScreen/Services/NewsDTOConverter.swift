@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsDTOConverter {
+struct NewsDTOConverter: NewsDTOConverterLogic {
     func convert(from dto: NewsResponseDTO) -> NewsModel.NewsResponse {
         return NewsModel.NewsResponse(
             news: dto.news.map(convert),

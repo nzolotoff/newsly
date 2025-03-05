@@ -20,3 +20,14 @@ protocol NewsPresentationLogic {
 protocol NewsRoutingLogic {
     func routeTo()
 }
+
+protocol NewsWorkerLogic {
+    func fetchNews(
+        for request: NewsModel.FetchRequest,
+        completion: @escaping (Result<NewsResponseDTO, Error>) -> Void
+    )
+}
+
+protocol NewsDTOConverterLogic {
+    func convert(from dto: NewsResponseDTO) -> NewsModel.NewsResponse
+}

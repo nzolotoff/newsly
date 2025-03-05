@@ -27,7 +27,7 @@ enum NewsServiceError: LocalizedError {
     }
 }
 
-final class NewsService {
+final class NewsService: NewsWorkerLogic {
     private let networking: NetworkingLogic
     private let jsonDecoder: JSONDecoder = JSONDecoder()
     

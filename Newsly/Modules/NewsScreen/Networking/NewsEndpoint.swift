@@ -8,6 +8,7 @@
 import Foundation
 
 enum NewsEndpoint: Endpoint {
+    
     case news(
         rubricId: Int,
         pageIndex: Int,
@@ -25,7 +26,7 @@ enum NewsEndpoint: Endpoint {
         return [:]
     }
     
-    var parameters: [String: String] {
+    var parameters: [String: String]? {
         var result: [String: String] = [:]
         
         switch self {

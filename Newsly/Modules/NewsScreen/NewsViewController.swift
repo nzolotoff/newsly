@@ -33,6 +33,7 @@ final class NewsViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         interactor.loadStart()
+        interactor.refresh(NewsModel.FetchRequest(rubricId: 4, pageIndex: 1, pageSize: 10))
     }
     
     // MARK: Methods

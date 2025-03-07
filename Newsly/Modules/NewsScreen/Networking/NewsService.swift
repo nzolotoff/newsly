@@ -42,7 +42,7 @@ final class NewsService: NewsWorkerLogic {
             pageIndex: 1,
             pageSize: 10
         ),
-        completion: @escaping (Result<NewsResponseDTO, Error>) -> Void
+        completion: ((Result<NewsResponseDTO, Error>) -> Void)?
     ) {
         let endpoint = NewsEndpoint.news(
             rubricId: request.rubricId,
@@ -50,7 +50,9 @@ final class NewsService: NewsWorkerLogic {
             pageSize: request.pageSize
         )
         
-        fetch(for: Request(endpoint: endpoint), completion: completion)
+        let request = Request(endpoint: endpoint)
+        
+        fetch(for: request, completion: completion)
     }
  
     // MARK: - Fetch logic
@@ -76,7 +78,7 @@ final class NewsService: NewsWorkerLogic {
                 }
                 
             case .failure(let error):
-                if let requestError = error as? BaseURLError {
+                if let _ = error as? BaseURLError {
                     completion?(.failure(NewsServiceError.invalidRequest))
                 }
                 

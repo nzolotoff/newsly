@@ -9,5 +9,6 @@ import Foundation
 
 struct NewsResponseDTO: Decodable {
     let news: [ArticleDTO]
-    let requestID: String
+    let requestId: String
 }
+

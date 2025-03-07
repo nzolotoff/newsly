@@ -7,6 +7,7 @@
 
 protocol NewsBusinessLogic {
     func loadStart()
+    func refresh(_ request: NewsModel.FetchRequest)
 }
 
 protocol NewsDataStore {
@@ -24,7 +25,7 @@ protocol NewsRoutingLogic {
 protocol NewsWorkerLogic {
     func fetchNews(
         for request: NewsModel.FetchRequest,
-        completion: @escaping (Result<NewsResponseDTO, Error>) -> Void
+        completion: ((Result<NewsResponseDTO, Error>) -> Void)?
     )
 }
 

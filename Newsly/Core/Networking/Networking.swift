@@ -41,12 +41,14 @@ final class BaseURLWorker: NetworkingLogic {
     func execute(with request: Request, completion: @escaping Response) {
         guard let urlRequest = convert(request) else {
             completion(.failure(BaseURLError.invalidRequest))
+            print(BaseURLError.invalidRequest.description)
             return
         }
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error {
                 completion(.failure(error))
+                print(error.localizedDescription)
                 return
             }
             

@@ -36,6 +36,7 @@ final class AsyncImageView: UIView {
     }
     
     func loadImage(from url: URL?) {
+        shimmerView.startAnimating()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard
                 let url,
@@ -44,6 +45,7 @@ final class AsyncImageView: UIView {
                 return
             }
             
+            // TODO: Fix race condition - add current loading url
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image
                 self?.shimmerView.isHidden = true
@@ -54,13 +56,12 @@ final class AsyncImageView: UIView {
     // MARK: - Configure UI
     private func configureUI() {
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 12
-        imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         imageView.clipsToBounds = true
         
         addSubview(imageView)
         imageView.pin(to: self)
         
+        shimmerView.clipsToBounds = true
         addSubview(shimmerView)
         shimmerView.pin(to: self)
     }

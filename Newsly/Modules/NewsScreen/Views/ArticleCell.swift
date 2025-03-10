@@ -75,14 +75,19 @@ final class ArticleCell: UITableViewCell {
         wrapView.layer.cornerRadius = Constants.Size.cornerRadius
         
         addSubview(wrapView)
-        wrapView.pinHorizontal(to: self, 16)
-        wrapView.pinVertical(to: self, 12)
+        wrapView.pinHorizontal(to: self, Constants.Spacing.l)
+        wrapView.pinVertical(to: self, Constants.Spacing.m)
     }
     
     private func configureMainImage() {
+        mainImage.layer.maskedCorners = [
+            .layerMinXMinYCorner,
+            .layerMaxXMinYCorner
+        ]
+        mainImage.layer.cornerRadius = 12
         mainImage.clipsToBounds = true
         mainImage.contentMode = .scaleAspectFit
-    
+        
         wrapView.addSubview(mainImage)
         mainImage.pinHorizontal(to: wrapView)
         mainImage.pinTop(to: wrapView)

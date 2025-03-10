@@ -28,11 +28,17 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     
     // MARK: - Methods
     func loadStart() {
-        refresh(NewsModel.FetchRequest(rubricId: 4, pageIndex: 1, pageSize: 10))
+        refresh()
         presenter.presentStart()
     }
     
-    func refresh(_ request: NewsModel.FetchRequest) {
+    func refresh(
+        _ request: NewsModel.FetchRequest = NewsModel.FetchRequest(
+            rubricId: 4,
+            pageIndex: 1,
+            pageSize: 10
+        )
+    ) {
         worker.fetchNews(
             for: NewsModel.FetchRequest(
                 rubricId: request.rubricId,
@@ -44,20 +50,15 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
             switch result {
             case .success(let responseDTO):
                 let converted = self.converter.convert(from: responseDTO)
-                articles = converted.news
+                articles += converted.news
                 presenter.presentStart()
-                
-                // TODO: call function to process model
             case .failure(let error):
                 // TODO: write and call function to switch error
                 //
                 print(error.localizedDescription)
-                
             }
         }
     }
-    
-
 }
 
 extension NewsInteractor: UITableViewDataSource {
@@ -65,7 +66,6 @@ extension NewsInteractor: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        print("iz yacheiki \(articles.count)")
         return articles.count
     }
     

@@ -12,7 +12,7 @@ struct ArticleDTO: Decodable {
     let title: String
     let announce: String
     let date: String
-    let sourceIcon: URL
+    let sourceIcon: String?
     let sourceName: String
     let image: ArticleImageDTO?
     let timeOfReading: String

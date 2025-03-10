@@ -10,16 +10,17 @@ import UIKit
 final class NewsViewController: UIViewController {
     // MARK: - Constants
     enum Constants {
-        
+        static let title: String = "News"
     }
     
     // MARK: - Fields
-    private let interactor: NewsBusinessLogic
+    private let interactor: NewsBusinessLogic & NewsDataStore
     
     // MARK: - UI Components
+    private let newsTable: UITableView = UITableView()
     
     // MARK: - Lyfecycle
-    init(interactor: NewsBusinessLogic) {
+    init(interactor: NewsBusinessLogic & NewsDataStore) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,16 +34,52 @@ final class NewsViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         interactor.loadStart()
-        interactor.refresh(NewsModel.FetchRequest(rubricId: 4, pageIndex: 1, pageSize: 10))
     }
     
     // MARK: Methods
     func displayStart() {
-        view.backgroundColor = .cyan
+        DispatchQueue.main.async {
+            self.newsTable.reloadData()
+        }
     }
     
     // MARK: - Configure UI
     private func configureUI() {
-        view.backgroundColor = .green
+        view.backgroundColor = .systemGray6
+        
+        configureNavigationBar()
+        configureNewsTableView()
+    }
+    
+    private func configureNavigationBar() {
+        self.title = Constants.title
+    }
+    
+    private func configureNewsTableView() {
+        newsTable.backgroundColor = .clear
+        newsTable.separatorStyle = .none
+        
+        newsTable.delegate = self
+        newsTable.dataSource = interactor
+        
+        newsTable.register(
+            ArticleCell.self,
+            forCellReuseIdentifier: ArticleCell.reuseIdentifier
+        )
+        
+        view.addSubview(newsTable)
+        newsTable.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
+        newsTable.pinHorizontal(to: view)
+        newsTable.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension NewsViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        400
     }
 }

@@ -4,8 +4,9 @@
 //
 //  Created by Nikita Zolotov on 01.03.2025.
 //
+import UIKit
 
-protocol NewsBusinessLogic {
+protocol NewsBusinessLogic: UITableViewDataSource {
     func loadStart()
     func refresh(_ request: NewsModel.FetchRequest)
 }

@@ -11,7 +11,7 @@ struct NewsDTOConverter: NewsDTOConverterLogic {
     func convert(from dto: NewsResponseDTO) -> NewsModel.NewsResponse {
         return NewsModel.NewsResponse(
             news: dto.news.map(convert),
-            requestID: dto.requestId
+            requestId: dto.requestId ?? ""
         )
     }
     
@@ -20,18 +20,15 @@ struct NewsDTOConverter: NewsDTOConverterLogic {
             id: dto.id,
             title: dto.title,
             announce: dto.announce,
-            date: dto.date,
-            sourceIcon: dto.sourceIcon,
+            sourceIcon: URL(string: dto.sourceIcon ?? ""),
             sourceName: dto.sourceName,
-            image: dto.image.map(convert),
-            timeOfReading: dto.timeOfReading,
-            sectionName: dto.sectionName
+            image: dto.image.map(convert)
         )
     }
     
     private func convert(from dto: ArticleImageDTO) -> NewsModel.ArticleImage {
         NewsModel.ArticleImage(
-            url: dto.url,
+            url: URL(string: dto.url ?? ""),
             isRemote: dto.isRemote
         )
     }

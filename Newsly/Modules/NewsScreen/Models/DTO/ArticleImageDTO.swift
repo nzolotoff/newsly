@@ -9,5 +9,5 @@ import Foundation
 
 struct ArticleImageDTO: Decodable {
     let isRemote: Bool
-    let url: URL 
+    let url: String?
 }

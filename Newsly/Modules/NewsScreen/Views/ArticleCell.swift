@@ -52,6 +52,12 @@ final class ArticleCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        mainImage.reset()
+        sourceIcon.reset()
+    }
+    
     // MARK: - Cell configuration
     func configure(with model: NewsModel.Article) {
         titleLabel.text = model.title

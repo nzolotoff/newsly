@@ -24,6 +24,8 @@ final class AsyncImageView: UIView {
     private let imageView: UIImageView = UIImageView()
     private let errorImage: UIImage? = Constants.errorImage
     
+    private var currentLoadingURL: URL?
+    
     // MARK: - Lyfecycle
     init() {
         super.init(frame: .zero)
@@ -37,6 +39,8 @@ final class AsyncImageView: UIView {
     
     func loadImage(from url: URL?) {
         shimmerView.startAnimating()
+        currentLoadingURL = url
+        
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard
                 let url,
@@ -47,10 +51,21 @@ final class AsyncImageView: UIView {
             
             // TODO: Fix race condition - add current loading url
             DispatchQueue.main.async { [weak self] in
-                self?.imageView.image = image
-                self?.shimmerView.isHidden = true
+                if ((self?.currentLoadingURL) != nil), self?.currentLoadingURL == url {
+                    self?.imageView.image = image
+                    self?.shimmerView.stopAnimating()
+                    self?.shimmerView.isHidden = true
+                }
             }
         }
+    }
+    
+    func reset() {
+        shimmerView.startAnimating()
+        shimmerView.isHidden = false
+        imageView.image = nil
+        currentLoadingURL = nil
+        
     }
     
     // MARK: - Configure UI

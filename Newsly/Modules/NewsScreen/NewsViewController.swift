@@ -11,6 +11,14 @@ final class NewsViewController: UIViewController {
     // MARK: - Constants
     enum Constants {
         static let title: String = "News"
+        
+        enum Size {
+            static let estimatedRowHeight: CGFloat = 400
+        }
+        
+        enum Settings {
+            static let newsBeforeThePageEnds: Int = 3
+        }
     }
     
     // MARK: - Fields
@@ -95,6 +103,18 @@ extension NewsViewController: UITableViewDelegate {
         _ tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
-        400
+        Constants.Size.estimatedRowHeight
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        if indexPath.row ==
+            (tableView.numberOfRows(inSection: indexPath.section))
+            - Constants.Settings.newsBeforeThePageEnds {
+            interactor.loadMoreNews()
+        }
     }
 }

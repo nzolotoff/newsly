@@ -13,6 +13,9 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     private let worker: NewsWorkerLogic
     private let converter: NewsDTOConverterLogic
     
+    private var isLoading: Bool = false
+    private var currentPage: Int = 0
+    
     var articles: [NewsModel.Article] = []
     
     // MARK: - Lifecycle
@@ -28,8 +31,25 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     
     // MARK: - Methods
     func loadStart() {
+        articles.removeAll()
         refresh()
         presenter.presentStart()
+    }
+    
+    func loadMoreNews() {
+        guard isLoading != true else {
+            return
+        }
+        
+        isLoading = true
+        let loadingPage = currentPage + 1
+        refresh(
+            NewsModel.FetchRequest(
+                rubricId: 4,
+                pageIndex: loadingPage,
+                pageSize: 10
+            )
+        )
     }
     
     func refresh(
@@ -39,22 +59,19 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
             pageSize: 10
         )
     ) {
-        worker.fetchNews(
-            for: NewsModel.FetchRequest(
-                rubricId: request.rubricId,
-                pageIndex: request.pageIndex,
-                pageSize: request.pageSize
-            )
-        ) { [weak self] result in
+        worker.fetchNews(for: request) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let responseDTO):
                 let converted = self.converter.convert(from: responseDTO)
                 articles += converted.news
+                currentPage = request.pageIndex
                 presenter.presentStart()
+                isLoading = false
             case .failure(let error):
-                // TODO: write and call function to switch error
+                // TODO: write and call function to switch error (presenter logic)
                 //
+                isLoading = false
                 print(error.localizedDescription)
             }
         }

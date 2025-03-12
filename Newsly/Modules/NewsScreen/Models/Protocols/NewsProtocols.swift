@@ -8,6 +8,7 @@ import UIKit
 
 protocol NewsBusinessLogic: UITableViewDataSource {
     func loadStart()
+    func loadMoreNews()
     func refresh(_ request: NewsModel.FetchRequest)
 }
 

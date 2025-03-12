@@ -90,7 +90,7 @@ final class ArticleCell: UITableViewCell {
             .layerMinXMinYCorner,
             .layerMaxXMinYCorner
         ]
-        mainImage.layer.cornerRadius = 12
+        mainImage.layer.cornerRadius = Constants.Size.cornerRadius
         mainImage.clipsToBounds = true
         mainImage.contentMode = .scaleAspectFit
         

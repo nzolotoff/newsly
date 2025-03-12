@@ -18,6 +18,7 @@ final class NewsViewController: UIViewController {
     
     // MARK: - UI Components
     private let newsTable: UITableView = UITableView()
+    private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lyfecycle
     init(interactor: NewsBusinessLogic & NewsDataStore) {
@@ -36,10 +37,13 @@ final class NewsViewController: UIViewController {
         interactor.loadStart()
     }
     
-    // MARK: Methods
+    // MARK: Display logic
     func displayStart() {
-        DispatchQueue.main.async {
-            self.newsTable.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.newsTable.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.refreshControl.endRefreshing()
+            }
         }
     }
     
@@ -62,6 +66,12 @@ final class NewsViewController: UIViewController {
         newsTable.delegate = self
         newsTable.dataSource = interactor
         
+        newsTable.refreshControl = refreshControl
+        refreshControl.addTarget(
+            self,
+            action: #selector(refreshControlTriggered),
+            for: .valueChanged
+        )
         newsTable.register(
             ArticleCell.self,
             forCellReuseIdentifier: ArticleCell.reuseIdentifier
@@ -71,6 +81,11 @@ final class NewsViewController: UIViewController {
         newsTable.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
         newsTable.pinHorizontal(to: view)
         newsTable.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
+    }
+    
+    // MARK: - Actions
+    @objc private func refreshControlTriggered() {
+        interactor.loadStart()
     }
 }
 

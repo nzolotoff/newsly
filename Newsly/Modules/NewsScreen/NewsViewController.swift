@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class NewsViewController: UIViewController {
     // MARK: - Constants
@@ -53,6 +54,11 @@ final class NewsViewController: UIViewController {
                 self?.refreshControl.endRefreshing()
             }
         }
+    }
+    
+    func displayArticlePage(_ url: URL) {
+        let safaryVC = SFSafariViewController(url: url)
+        present(safaryVC, animated: true)
     }
     
     // MARK: - Configure UI
@@ -116,5 +122,12 @@ extension NewsViewController: UITableViewDelegate {
             - Constants.Settings.newsBeforeThePageEnds {
             interactor.loadMoreNews()
         }
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        interactor.loadArticlePage(with: indexPath.row)
     }
 }

@@ -15,6 +15,16 @@ final class NewsPresenter: NewsPresentationLogic {
     func presentStart() {
         view?.displayStart()
     }
+    
+    func presentArticlePage(with url: URL?) {
+        guard let pageURL = url else {
+            // alert | error state
+            print("!")
+            return
+        }
+        
+        view?.displayArticlePage(pageURL)
+    }
 }
 
 // MARK: - NewsRoutingLogic

@@ -10,6 +10,7 @@ protocol NewsBusinessLogic: UITableViewDataSource {
     func loadStart()
     func loadMoreNews()
     func refresh(_ request: NewsModel.FetchRequest)
+    func loadArticlePage(with index: Int)
 }
 
 protocol NewsDataStore {
@@ -18,6 +19,7 @@ protocol NewsDataStore {
 
 protocol NewsPresentationLogic {
     func presentStart()
+    func presentArticlePage(with url: URL?)
 }
 
 protocol NewsRoutingLogic {

@@ -65,7 +65,6 @@ final class AsyncImageView: UIView {
         shimmerView.isHidden = false
         imageView.image = nil
         currentLoadingURL = nil
-        
     }
     
     // MARK: - Configure UI

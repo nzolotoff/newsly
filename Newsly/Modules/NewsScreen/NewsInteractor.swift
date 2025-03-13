@@ -15,6 +15,7 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     
     private var isLoading: Bool = false
     private var currentPage: Int = 0
+    private var lastRequestId: String = ""
     
     var articles: [NewsModel.Article] = []
     
@@ -65,6 +66,7 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
             case .success(let responseDTO):
                 let converted = self.converter.convert(from: responseDTO)
                 articles += converted.news
+                lastRequestId = converted.requestId
                 currentPage = request.pageIndex
                 presenter.presentStart()
                 isLoading = false
@@ -75,6 +77,22 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func loadArticlePage(with index: Int) {
+        let articleId = articles[index].id
+        let articleURL = generateArticleSourceURL(
+            for: articleId,
+            requestId: lastRequestId
+        )
+        presenter.presentArticlePage(with: articleURL)
+    }
+    
+    private func generateArticleSourceURL(
+        for id: Int,
+        requestId: String
+    ) -> URL? {
+        return URL(string: "https://news.myseldon.com/ru/news/index/\(id)?requestId=\(requestId)")
     }
 }
 

@@ -20,6 +20,13 @@ final class NewsViewController: UIViewController {
         enum Settings {
             static let newsBeforeThePageEnds: Int = 3
         }
+        
+        enum Menu {
+            static let title: String = "Share"
+            static let image: UIImage? = UIImage(
+                systemName: "square.and.arrow.up"
+            )
+        }
     }
     
     // MARK: - Fields
@@ -59,6 +66,14 @@ final class NewsViewController: UIViewController {
     func displayArticlePage(_ url: URL) {
         let safaryVC = SFSafariViewController(url: url)
         present(safaryVC, animated: true)
+    }
+    
+    func displaySharingInfo(with content: String) {
+        let activityVC = UIActivityViewController(
+            activityItems: [content],
+            applicationActivities: nil
+        )
+        present(activityVC, animated: true)
     }
     
     // MARK: - Configure UI
@@ -129,5 +144,27 @@ extension NewsViewController: UITableViewDelegate {
         didSelectRowAt indexPath: IndexPath
     ) {
         interactor.loadArticlePage(with: indexPath.row)
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let menu = UIContextMenuConfiguration(
+                    identifier: nil,
+                    previewProvider: nil
+                ) { _ in
+                    let shareAction = UIAction(
+                        title: Constants.Menu.title,
+                        image: Constants.Menu.image
+                    ) { [weak self] _ in
+                        self?.interactor.loadArticleSharing(for: indexPath.row)
+                    }
+                    
+                    return UIMenu(children: [shareAction])
+                }
+                
+                return menu
     }
 }

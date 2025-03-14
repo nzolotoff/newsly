@@ -88,6 +88,17 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
         presenter.presentArticlePage(with: articleURL)
     }
     
+    func loadArticleSharing(for index: Int) {
+        let articleId = articles[index].id
+        presenter.presentAticleSharingInfo(
+            for: articles[index],
+            shareURL: generateArticleSourceURL(
+                for: articleId,
+                requestId: lastRequestId
+            )
+        )
+    }
+    
     private func generateArticleSourceURL(
         for id: Int,
         requestId: String

@@ -19,11 +19,19 @@ final class NewsPresenter: NewsPresentationLogic {
     func presentArticlePage(with url: URL?) {
         guard let pageURL = url else {
             // alert | error state
-            print("!")
             return
         }
         
         view?.displayArticlePage(pageURL)
+    }
+    
+    func presentAticleSharingInfo(
+        for article: NewsModel.Article,
+        shareURL: URL?
+    ) {
+        let stringURL = String(describing: shareURL)
+        let content = "\(article.title)\n\(article.announce)\n\(stringURL)"
+        view?.displaySharingInfo(with: content)
     }
 }
 

@@ -11,6 +11,7 @@ protocol NewsBusinessLogic: UITableViewDataSource {
     func loadMoreNews()
     func refresh(_ request: NewsModel.FetchRequest)
     func loadArticlePage(with index: Int)
+    func loadArticleSharing(for index: Int)
 }
 
 protocol NewsDataStore {
@@ -20,6 +21,7 @@ protocol NewsDataStore {
 protocol NewsPresentationLogic {
     func presentStart()
     func presentArticlePage(with url: URL?)
+    func presentAticleSharingInfo(for article: NewsModel.Article, shareURL: URL?)
 }
 
 protocol NewsRoutingLogic {

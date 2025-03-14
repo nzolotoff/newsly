@@ -34,7 +34,6 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     func loadStart() {
         articles.removeAll()
         refresh()
-        presenter.presentStart()
     }
     
     func loadMoreNews() {
@@ -71,10 +70,8 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
                 presenter.presentStart()
                 isLoading = false
             case .failure(let error):
-                // TODO: write and call function to switch error (presenter logic)
-                //
+                presenter.presentErrorState(with: error)
                 isLoading = false
-                print(error.localizedDescription)
             }
         }
     }

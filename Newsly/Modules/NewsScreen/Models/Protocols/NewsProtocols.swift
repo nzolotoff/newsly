@@ -22,6 +22,7 @@ protocol NewsPresentationLogic {
     func presentStart()
     func presentArticlePage(with url: URL?)
     func presentAticleSharingInfo(for article: NewsModel.Article, shareURL: URL?)
+    func presentErrorState(with error: Error)
 }
 
 protocol NewsRoutingLogic {

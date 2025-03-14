@@ -33,6 +33,15 @@ final class NewsPresenter: NewsPresentationLogic {
         let content = "\(article.title)\n\(article.announce)\n\(stringURL)"
         view?.displaySharingInfo(with: content)
     }
+    
+    func presentErrorState(with error: Error) {
+        if let newsError = error as? NewsServiceError {
+            view?.displayErrorView(with: newsError.errorDescription)
+            return
+        } else {
+            view?.displayErrorView(with: "An unknown error occurred.")
+        }
+    }
 }
 
 // MARK: - NewsRoutingLogic

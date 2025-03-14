@@ -41,15 +41,20 @@ final class AsyncImageView: UIView {
         shimmerView.startAnimating()
         currentLoadingURL = url
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        guard let url else {
+            imageView.image = Constants.errorImage
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard
-                let url,
-                let data = try? Data(contentsOf: url),
-                let image = UIImage(data: data) else {
+                let data,
+                let image = UIImage(data: data),
+                error == nil else {
+                self?.imageView.image = Constants.errorImage
                 return
             }
             
-            // TODO: Fix race condition - add current loading url
             DispatchQueue.main.async { [weak self] in
                 if ((self?.currentLoadingURL) != nil), self?.currentLoadingURL == url {
                     self?.imageView.image = image
@@ -57,7 +62,7 @@ final class AsyncImageView: UIView {
                     self?.shimmerView.isHidden = true
                 }
             }
-        }
+        }.resume()
     }
     
     func reset() {
@@ -65,7 +70,6 @@ final class AsyncImageView: UIView {
         shimmerView.isHidden = false
         imageView.image = nil
         currentLoadingURL = nil
-        
     }
     
     // MARK: - Configure UI

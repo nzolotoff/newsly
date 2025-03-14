@@ -15,6 +15,7 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     
     private var isLoading: Bool = false
     private var currentPage: Int = 0
+    private var lastRequestId: String = ""
     
     var articles: [NewsModel.Article] = []
     
@@ -33,7 +34,6 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
     func loadStart() {
         articles.removeAll()
         refresh()
-        presenter.presentStart()
     }
     
     func loadMoreNews() {
@@ -65,16 +65,42 @@ final class NewsInteractor: NSObject, NewsBusinessLogic & NewsDataStore {
             case .success(let responseDTO):
                 let converted = self.converter.convert(from: responseDTO)
                 articles += converted.news
+                lastRequestId = converted.requestId
                 currentPage = request.pageIndex
                 presenter.presentStart()
                 isLoading = false
             case .failure(let error):
-                // TODO: write and call function to switch error (presenter logic)
-                //
+                presenter.presentErrorState(with: error)
                 isLoading = false
-                print(error.localizedDescription)
             }
         }
+    }
+    
+    func loadArticlePage(with index: Int) {
+        let articleId = articles[index].id
+        let articleURL = generateArticleSourceURL(
+            for: articleId,
+            requestId: lastRequestId
+        )
+        presenter.presentArticlePage(with: articleURL)
+    }
+    
+    func loadArticleSharing(for index: Int) {
+        let articleId = articles[index].id
+        presenter.presentAticleSharingInfo(
+            for: articles[index],
+            shareURL: generateArticleSourceURL(
+                for: articleId,
+                requestId: lastRequestId
+            )
+        )
+    }
+    
+    private func generateArticleSourceURL(
+        for id: Int,
+        requestId: String
+    ) -> URL? {
+        return URL(string: "https://news.myseldon.com/ru/news/index/\(id)?requestId=\(requestId)")
     }
 }
 

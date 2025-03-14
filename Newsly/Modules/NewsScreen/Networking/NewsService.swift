@@ -10,17 +10,32 @@ import Foundation
 enum NewsServiceError: LocalizedError {
     case noData
     case decodingFailed(Error)
-    case networkError(Error)
+    case networkError(URLError)
     case invalidRequest
     
-    var errorDescription: String? {
+    var errorDescription: String {
         switch self {
         case .noData:
             return "No news available"
         case .decodingFailed(let error):
             return "Error ocured while decoding data: \(error.localizedDescription)"
-        case .networkError(let error):
-            return "Network error: \(error.localizedDescription)"
+        case .networkError(let urlError):
+            switch urlError.code {
+            case .notConnectedToInternet:
+                return "No internet connection. Please check your network settings."
+            case .timedOut:
+                return "The request timed out. Please try again later."
+            case .cannotFindHost:
+                return "Unable to find the server. Please check the URL or try again later."
+            case .cannotConnectToHost:
+                return "Failed to connect to the server. Please check your connection."
+            case .networkConnectionLost:
+                return "The network connection was lost. Please try again."
+            case .badServerResponse:
+                return "The server returned an invalid response. Please try again later."
+            default:
+                return "An unknown network error occurred. Please try again."
+            }
         case .invalidRequest:
             return ""
         }
@@ -82,7 +97,9 @@ final class NewsService: NewsWorkerLogic {
                     completion?(.failure(NewsServiceError.invalidRequest))
                 }
                 
-                completion?(.failure(NewsServiceError.networkError(error)))
+                if let urlError = error as? URLError {
+                    completion?(.failure(NewsServiceError.networkError(urlError)))
+                }
             }
         }
     }

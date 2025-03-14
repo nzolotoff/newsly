@@ -69,6 +69,7 @@ final class ArticleCell: UITableViewCell {
     
     // MARK: - Configure UI
     private func configureUI() {
+        self.selectionStyle = .none
         self.backgroundColor = .systemGray6
         configureWrapView()
         configureMainImage()

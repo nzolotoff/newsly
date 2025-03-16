@@ -24,6 +24,7 @@ final class NewsViewController: UIViewController {
         
         enum Settings {
             static let newsBeforeThePageEnds: Int = 3
+            static let animationDuration: Double = 0.5
         }
         
         enum Menu {
@@ -67,7 +68,9 @@ final class NewsViewController: UIViewController {
             self?.errorView?.isHidden = true
             self?.newsTable.isHidden = false
             self?.activityIndicator.stopAnimating()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + Constants.Settings.animationDuration
+            ) { [weak self] in
                 self?.refreshControl.endRefreshing()
             }
         }
@@ -89,7 +92,9 @@ final class NewsViewController: UIViewController {
     func displayErrorView(with description: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + Constants.Settings.animationDuration
+            ) { [weak self] in
                 guard let self else { return }
                 self.activityIndicator.stopAnimating()
             }
@@ -109,7 +114,9 @@ final class NewsViewController: UIViewController {
                 self?.interactor.loadStart()
             }
             
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(
+                withDuration: Constants.Settings.animationDuration
+            ) {
                 self.newsTable.isHidden = true
                 errorView.isHidden = false
             }

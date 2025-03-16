@@ -38,14 +38,21 @@ final class AsyncImageView: UIView {
     }
     
     func loadImage(from url: URL?) {
-        shimmerView.startAnimating()
-        currentLoadingURL = url
-        
         guard let url else {
             imageView.image = Constants.errorImage
             return
         }
         
+        if let cachedImage = ImageCacheService.shared.getImage(
+            for: url.absoluteString
+        ) {
+            imageView.image = cachedImage
+            return
+        }
+        
+        shimmerView.startAnimating()
+        currentLoadingURL = url
+    
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard
                 let data,
@@ -60,6 +67,7 @@ final class AsyncImageView: UIView {
                     self?.imageView.image = image
                     self?.shimmerView.stopAnimating()
                     self?.shimmerView.isHidden = true
+                    ImageCacheService.shared.set(image: image, for: url.absoluteString)
                 }
             }
         }.resume()

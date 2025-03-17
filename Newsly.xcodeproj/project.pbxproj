@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		FBCBA2602D881B3D006BC936 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB1018AE2D72F61E00D09E28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB1018B52D72F61E00D09E28;
+			remoteInfo = Newsly;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		FB1018B62D72F61E00D09E28 /* Newsly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newsly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBCBA25C2D881B3D006BC936 /* NewslyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewslyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,10 +40,22 @@
 			path = Newsly;
 			sourceTree = "<group>";
 		};
+		FBCBA25D2D881B3D006BC936 /* NewslyTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NewslyTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FB1018B32D72F61E00D09E28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBCBA2592D881B3D006BC936 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1018B82D72F61E00D09E28 /* Newsly */,
+				FBCBA25D2D881B3D006BC936 /* NewslyTests */,
 				FB1018B72D72F61E00D09E28 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1018B62D72F61E00D09E28 /* Newsly.app */,
+				FBCBA25C2D881B3D006BC936 /* NewslyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +108,29 @@
 			productReference = FB1018B62D72F61E00D09E28 /* Newsly.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FBCBA25B2D881B3D006BC936 /* NewslyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBCBA2622D881B3D006BC936 /* Build configuration list for PBXNativeTarget "NewslyTests" */;
+			buildPhases = (
+				FBCBA2582D881B3D006BC936 /* Sources */,
+				FBCBA2592D881B3D006BC936 /* Frameworks */,
+				FBCBA25A2D881B3D006BC936 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBCBA2612D881B3D006BC936 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FBCBA25D2D881B3D006BC936 /* NewslyTests */,
+			);
+			name = NewslyTests;
+			packageProductDependencies = (
+			);
+			productName = NewslyTests;
+			productReference = FBCBA25C2D881B3D006BC936 /* NewslyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -95,6 +143,10 @@
 				TargetAttributes = {
 					FB1018B52D72F61E00D09E28 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					FBCBA25B2D881B3D006BC936 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = FB1018B52D72F61E00D09E28;
 					};
 				};
 			};
@@ -115,12 +167,20 @@
 			projectRoot = "";
 			targets = (
 				FB1018B52D72F61E00D09E28 /* Newsly */,
+				FBCBA25B2D881B3D006BC936 /* NewslyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FB1018B42D72F61E00D09E28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBCBA25A2D881B3D006BC936 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -137,7 +197,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBCBA2582D881B3D006BC936 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FBCBA2612D881B3D006BC936 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB1018B52D72F61E00D09E28 /* Newsly */;
+			targetProxy = FBCBA2602D881B3D006BC936 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FB1018CA2D72F62000D09E28 /* Debug */ = {
@@ -315,6 +390,42 @@
 			};
 			name = Release;
 		};
+		FBCBA2632D881B3D006BC936 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4CDXBGTNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = justforme.NewslyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newsly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Newsly";
+			};
+			name = Debug;
+		};
+		FBCBA2642D881B3D006BC936 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4CDXBGTNX;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = justforme.NewslyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Newsly.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Newsly";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -332,6 +443,15 @@
 			buildConfigurations = (
 				FB1018CA2D72F62000D09E28 /* Debug */,
 				FB1018CB2D72F62000D09E28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBCBA2622D881B3D006BC936 /* Build configuration list for PBXNativeTarget "NewslyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBCBA2632D881B3D006BC936 /* Debug */,
+				FBCBA2642D881B3D006BC936 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

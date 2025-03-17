@@ -15,7 +15,7 @@ protocol NewsBusinessLogic: UITableViewDataSource {
 }
 
 protocol NewsDataStore {
-    var articles: [NewsModel.Article] { get }
+    var articles: [NewsModel.Article] { get set }
 }
 
 protocol NewsPresentationLogic {

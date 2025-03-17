@@ -4,10 +4,24 @@
 Newsly is a modern news application built with Swift and UIKit, following the SVIP (VIPER) architecture. The app fetches and displays news articles with pagination support and image caching, ensuring a smooth user experience.
 
 ## User Interface 
-![shimmer](https://github.com/user-attachments/assets/b22eeedd-7ac1-4164-99e2-ebadf2984378)
-<img width="352" alt="loading" src="https://github.com/user-attachments/assets/044698a0-b070-45cd-b7b2-8ad09c4403be" />
-<img width="352" alt="error state" src="https://github.com/user-attachments/assets/f42e4cb1-1a25-46f3-b0fe-845872071f87" />
-<img width="352" alt="share" src="https://github.com/user-attachments/assets/ce304c58-c05d-4081-90a1-9886e650fff7" />
+<table>
+  <tr>
+    <th>Shimmer Effect</th>
+    <th>Loading</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b22eeedd-7ac1-4164-99e2-ebadf2984378" width="352" height="auto" /></td>
+    <td><img src="https://github.com/user-attachments/assets/044698a0-b070-45cd-b7b2-8ad09c4403be" width="352" height="auto" /></td>
+  </tr>
+  <tr>
+    <th>Error State</th>
+    <th>Share</th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/f42e4cb1-1a25-46f3-b0fe-845872071f87" width="352" height="auto" /></td>
+    <td><img src="https://github.com/user-attachments/assets/ce304c58-c05d-4081-90a1-9886e650fff7" width="352" height="auto" /></td>
+  </tr>
+</table>
 
 
 ## Features
@@ -70,8 +84,3 @@ Feel free to contribute by opening issues or submitting pull requests.
 
 ## License
 MIT License. See `LICENSE` for details.
-
-
-
-
-

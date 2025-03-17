@@ -10,6 +10,7 @@ import UIKit
 final class ArticleCell: UITableViewCell {
     // MARK: - Constants
     enum Constants {
+        static let identifier: String = "ArticleCell"
         enum Spacing {
             static let s: CGFloat = 8
             static let m: CGFloat = 12
@@ -27,7 +28,7 @@ final class ArticleCell: UITableViewCell {
     }
     
     // MARK: - Fields
-    static let reuseIdentifier: String = "ArticleCell"
+    static let reuseIdentifier: String = Constants.identifier
     
     private let wrapView: UIView = UIView()
     private let mainImage: AsyncImageView = AsyncImageView()

@@ -57,8 +57,6 @@ final class ArticleCell: UITableViewCell {
         super.prepareForReuse()
         mainImage.reset()
         sourceIcon.reset()
-        titleLabel.text = nil
-        descriptionLabel.text = nil
     }
     
     // MARK: - Cell configuration

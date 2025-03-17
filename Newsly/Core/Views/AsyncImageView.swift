@@ -47,6 +47,8 @@ final class AsyncImageView: UIView {
             for: url.absoluteString
         ) {
             imageView.image = cachedImage
+            shimmerView.stopAnimating()
+            shimmerView.isHidden = true
             return
         }
         
